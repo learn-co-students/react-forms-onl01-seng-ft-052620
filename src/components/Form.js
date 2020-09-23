@@ -6,10 +6,17 @@ class Form extends React.Component {
     lastName: "Henry"
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault()
+    let formData = { firstName: this.state.firstName, lastName: this.state.lastName }
+    let dataArray = this.state.submittedData.concat(formData)
+    this.setState({submittedData: dataArray})
+  }
+
   handleFirstNameChange = event => {
     this.setState({
       firstName: event.target.value
-    })
+    }, () => console.log(this.state))
   }
 
   handleLastNameChange = event => {
@@ -20,7 +27,7 @@ class Form extends React.Component {
 
   render() {
     return (
-      <form>
+      <form onSubmit={e => this.handleSubmit(e)}>
         <input type="text" name="firstName" onChange={event => this.handleFirstNameChange(event)} value={this.state.firstName} />
         <input type="text" name="lastName" onChange={event => this.handleLastNameChange(event)} value={this.state.lastName} />
       </form>
